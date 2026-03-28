@@ -92,7 +92,7 @@ async function handleSubmit(event) {
   submitBtn.disabled = true;
   
   // ⚠️ ВСТАВЬТЕ ВАШ URL ОТ GOOGLE APPS SCRIPT
-  const GOOGLE_SHEETS_URL = 'https://formsubmit.co/ajax/alexishutin75@gmail.com';
+  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz7jG6SidkTCV_NYYKlHfh2EkWmc3rvtpCEA7l558susAJQyPqiBlbUeE-5ICuD17VA/exec';
   
   try {
     console.log('📡 Sending to:', GOOGLE_SHEETS_URL);
