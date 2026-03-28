@@ -71,6 +71,7 @@ async function handleSubmit(event) {
   const submitBtn = form.querySelector('.submit-btn');
   const statusDiv = document.getElementById('form-status');
   
+  // ✅ timestamp УДАЛЁН — FormSubmit его не принимает
   const formData = {
     name: document.getElementById('name').value.trim(),
     email: document.getElementById('email').value.trim(),
@@ -90,13 +91,12 @@ async function handleSubmit(event) {
   statusDiv.className = 'form-status';
   submitBtn.disabled = true;
   
-  // ПРАВИЛЬНЫЙ URL FormSubmit с вашим ключом
   const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/858a12017003faee3f4e9384b079b179';
   
   try {
     console.log('📡 Sending to:', FORM_SUBMIT_URL);
     
-    // Исправленный fetch: без mode: 'cors', правильный Content-Type
+    // ✅ Исправленный fetch: правильный Content-Type и формат данных
     const response = await fetch(FORM_SUBMIT_URL, {
       method: 'POST',
       headers: {
