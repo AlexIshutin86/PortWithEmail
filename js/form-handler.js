@@ -74,8 +74,7 @@ async function handleSubmit(event) {
   const formData = {
     name: document.getElementById('name').value.trim(),
     email: document.getElementById('email').value.trim(),
-    message: document.getElementById('message').value.trim(),
-    timestamp: new Date().toLocaleString('ru-RU')
+    message: document.getElementById('message').value.trim()
   };
   
   console.log('📤 Sending data:', formData);
@@ -91,19 +90,19 @@ async function handleSubmit(event) {
   statusDiv.className = 'form-status';
   submitBtn.disabled = true;
   
-  // ⚠️ ВСТАВЬТЕ ВАШ URL ОТ GOOGLE APPS SCRIPT
-  const GOOGLE_SHEETS_URL = 'https://formsubmit.co/ajax/858a12017003faee3f4e9384b079b179';
+  // ПРАВИЛЬНЫЙ URL FormSubmit с вашим ключом
+  const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/858a12017003faee3f4e9384b079b179';
   
   try {
-    console.log('📡 Sending to:', GOOGLE_SHEETS_URL);
+    console.log('📡 Sending to:', FORM_SUBMIT_URL);
     
-    const response = await fetch(GOOGLE_SHEETS_URL, {
+    // Исправленный fetch: без mode: 'cors', правильный Content-Type
+    const response = await fetch(FORM_SUBMIT_URL, {
       method: 'POST',
-      mode: 'cors',  // Убираем no-cors!
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(formData)
+      body: new URLSearchParams(formData)
     });
     
     console.log('📥 Response status:', response.status);
@@ -116,7 +115,7 @@ async function handleSubmit(event) {
       statusDiv.className = 'form-status success';
       form.reset();
     } else {
-      throw new Error(result.error || 'Unknown error');
+      throw new Error(result.message || 'Unknown error');
     }
     
   } catch (error) {
